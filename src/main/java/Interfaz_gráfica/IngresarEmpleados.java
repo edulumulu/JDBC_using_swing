@@ -6,6 +6,7 @@ package Interfaz_gráfica;
 
 import GestionBBDD.Gestion_BBDD;
 import java.sql.Connection;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Empleado;
 
@@ -14,9 +15,11 @@ import modelo.Empleado;
  * @author eduardolucasmunozdelucas
  */
 public class IngresarEmpleados extends javax.swing.JDialog {
-    
-    private Empleado empleado;
+
     Gestion_BBDD gesBBDD = new Gestion_BBDD();
+    ArrayList<Empleado> lista_empleados = new ArrayList<>();
+    Connection con = gesBBDD.Conectarse();
+    private Empleado empleado;
 
     /**
      * Creates new form IngresarEmpleados
@@ -24,6 +27,14 @@ public class IngresarEmpleados extends javax.swing.JDialog {
     public IngresarEmpleados(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        lista_empleados = gesBBDD.cargar_listado_empleados(con);
+        if (lista_empleados.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No existe ningún empleado en la BBDD", "Error", JOptionPane.WARNING_MESSAGE);
+            gesBBDD.desconectarse(con);
+            dispose();
+        }
+
     }
 
     /**
@@ -165,61 +176,70 @@ public class IngresarEmpleados extends javax.swing.JDialog {
 
     private void bt_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_aceptarActionPerformed
 
-        Boolean ok = true;
-        while (ok) {
+        if (tf_user.getText().trim().isEmpty()
+                || tf_pass.getText().trim().isEmpty()
+                || tf_nombre.getText().trim().isEmpty()
+                || tf_surname.getText().trim().isEmpty()
+                || tf_email.getText().trim().isEmpty()
+                || tf_tlf.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos", "Faltan campos por rellenar", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-            if (tf_user.getText().trim().isEmpty() ||
-                tf_pass.getText().trim().isEmpty() ||
-                tf_nombre.getText().trim().isEmpty() ||
-                tf_surname.getText().trim().isEmpty() ||
-                tf_email.getText().trim().isEmpty() ||
-                tf_tlf.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos", "Faltan campos por rellenar", JOptionPane.WARNING_MESSAGE);
+        for (Empleado em : lista_empleados) {
+            if (tf_user.getText().equalsIgnoreCase(em.getUser())) {
+                JOptionPane.showMessageDialog(this, "El usuario " + tf_user.getText() + " ya existe debes elegir otro", "Error en el campo usuario", JOptionPane.WARNING_MESSAGE);
                 return;
-            } else {
-                String user = tf_user.getText().trim();
-                String pass = tf_pass.getText().trim();
-                String name = tf_nombre.getText().trim();
-                String surname = tf_surname.getText().trim();
-                String email = tf_email.getText().trim();
-                String tlfTexto = tf_tlf.getText().trim();
-
-                // Verifica que el campo no esté vacío y solo contenga números
-                if (tlfTexto.isEmpty() || !tlfTexto.matches("\\d+")) {
-                    JOptionPane.showMessageDialog(this, "El nº de teléfono debe contener solo números y no estar vacío", "Error en el nº de teléfono", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                int tlf = Integer.parseInt(tlfTexto); // Ahora es seguro convertirlo
-
-                // Verifica que tenga exactamente 9 dígitos
-                if (tlfTexto.length() != 9) {
-                    JOptionPane.showMessageDialog(this, "El nº de teléfono debe tener exactamente 9 dígitos", "Error en el nº de teléfono", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }else {
-
-                    //System.out.println("--> " + user + pass + name + surname + tlf + email);
-
-                    empleado = new Empleado(user, pass, name, surname, tlf, email);
-                    Connection con = gesBBDD.Conectarse();
-                    if(gesBBDD.Insertar_empleado(con, empleado)){
-                        JOptionPane.showMessageDialog(this, "EMpleado insertado con éxito", "Empleado insertado", JOptionPane.INFORMATION_MESSAGE);
-                        gesBBDD.desconectarse(con);
-
-                        ok = false;
-                        dispose();
-                    }else{
-                        JOptionPane.showMessageDialog(this, "Error en la conexión con la BBDD", "Error", JOptionPane.WARNING_MESSAGE);
-                    }
-                    
-                }
             }
 
         }
+
+        for (Empleado em : lista_empleados) {
+            if (tf_nombre.getText().equalsIgnoreCase(em.getName()) && tf_surname.getText().equalsIgnoreCase(em.getSurname())) {
+                JOptionPane.showMessageDialog(this, "El usuario " + tf_nombre.getText() + " " + tf_surname.getText() + " ya existe debes elegir otro nombre o apellido", "Error con el nombre y apellido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+
+        String user = tf_user.getText().trim();
+        String pass = tf_pass.getText().trim();
+        String name = tf_nombre.getText().trim();
+        String surname = tf_surname.getText().trim();
+        String email = tf_email.getText().trim();
+        String tlfTexto = tf_tlf.getText().trim();
+
+        // Verifica que el campo no esté vacío y solo contenga números
+        if (tlfTexto.isEmpty() || !tlfTexto.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "El nº de teléfono debe contener solo números y no estar vacío", "Error en el nº de teléfono", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int tlf = Integer.parseInt(tlfTexto); // Ahora es seguro convertirlo
+
+        // Verifica que tenga exactamente 9 dígitos
+        if (tlfTexto.length() != 9) {
+            JOptionPane.showMessageDialog(this, "El nº de teléfono debe tener exactamente 9 dígitos", "Error en el nº de teléfono", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        //System.out.println("--> " + user + pass + name + surname + tlf + email);
+        empleado = new Empleado(user, pass, name, surname, tlf, email);
+        Connection con = gesBBDD.Conectarse();
+        if (gesBBDD.Insertar_empleado(con, empleado)) {
+            JOptionPane.showMessageDialog(this, "EMpleado insertado con éxito", "Empleado insertado", JOptionPane.INFORMATION_MESSAGE);
+            gesBBDD.desconectarse(con);
+
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error en la conexión con la BBDD", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_bt_aceptarActionPerformed
 
     private void bt_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salirActionPerformed
-       dispose();
+        gesBBDD.desconectarse(con);
+        dispose();
     }//GEN-LAST:event_bt_salirActionPerformed
 
     /**

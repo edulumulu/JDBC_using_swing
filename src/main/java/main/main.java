@@ -12,9 +12,6 @@ import PedirDatos_y_menus.PedirDatos;
 import static PedirDatos_y_menus.PedirDatos.pedir_numero_enetero;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import javax.sound.midi.SoundbankResource;
 import modelo.Empleado;
 
 /**
@@ -37,7 +34,7 @@ public class main {
         texto_listado_empleados();
         if (lista_empleados.isEmpty()) {
             System.out.println("");
-            System.out.println("Actualmente no hay ninguún registro. ");
+            System.out.println("Actualmente no hay ninguún registro.");
             //Menú que da la opción de cargar datos de ejmpo a la base de datos
             if (mostrar_menu_1() == true) {
                 // Con este método se cargan por defecto varios Empleados en la BBDD
