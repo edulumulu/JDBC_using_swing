@@ -199,7 +199,7 @@ public class main {
                                 System.out.println("Empleado " + (i + 1) + " --> " + lista_empleados.get(i).getName() + " " + lista_empleados.get(i).getSurname());
                             }
 
-                            System.out.println(" ");
+                            System.out.println("");
                             int indice = pedir_numero_enetero("Escribe el nº del empleado que quieras borrar", 1, lista_empleados.size() + 1);
                             System.out.println("");
 
