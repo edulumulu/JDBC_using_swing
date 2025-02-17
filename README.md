@@ -39,4 +39,4 @@ Abrir una terminal y ejecutar el programa para interactuar mediante texto.
 ---
 
 📌 **Autor:** *edulumulu*  
-📌 **Licencia:** MIT  
+
