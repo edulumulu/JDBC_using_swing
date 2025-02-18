@@ -72,28 +72,70 @@ public class main {
                         System.out.println("-------------------------");
                         System.out.println("----- ESCRIBE LOS SIGUIENTES DATOS: ------");
                         System.out.println("");
-                        String user = PedirDatos.texto_no_vacio("Escribe el usuario del empleado");
-                        String password = PedirDatos.texto_no_vacio("Escribe la contraseña del empleado");
-                        String name = PedirDatos.texto_no_vacio("Escribe el nombre del empleado");
-                        String surname = PedirDatos.texto_no_vacio("Escribe el apellido del empleado");
-                        int tlf = PedirDatos.pedir_num_tlf();
-                        String email = PedirDatos.texto_no_vacio("Escribe el email del empleado");
-                        System.out.println("");
+                        String user = null;
+                        boolean yes = true;
+                        while (yes) {
+                            user = PedirDatos.texto_no_vacio("Escribe el usuario del empleado");
+                            boolean encontrado = false;
 
-                        Empleado emp = new Empleado(user, password, name, surname, tlf, email);
-                        if (lista_empleados.add(emp)) {
-                            if (gestion_conexion.Insertar_empleado(conexion, emp)) {
-                                System.out.println("Empleado " + emp.getName() + " " + emp.getSurname() + " ha sido añadido a la BBDD con éxito");
-                                texto_listado_empleados();
-                                recorer_lista_empleados();
-
-                            } else {
-                                System.out.println("No se ha podido añadir el empleado a la BBDD");
+                            for (Empleado em : lista_empleados) {
+                                if (em.getUser().toString().equalsIgnoreCase(user) || user == null) {
+                                    System.out.println("El usuario de empleado --> " + user + " ya existe, debes elegir otro");
+                                    encontrado = true;
+                                    break;
+                                }
+                                
                             }
+                            if (!encontrado) {
+                                    yes = false;
+                                }
                         }
+                            String password = PedirDatos.texto_no_vacio("Escribe la contraseña del empleado");
 
-                        break;
-                    case 2:
+                            String name = null;
+                            String surname = null;
+
+                            yes = true;
+                            while (yes) {
+                                name = PedirDatos.texto_no_vacio("Escribe el nombre del empleado");
+                                surname = PedirDatos.texto_no_vacio("Escribe el apellido del empleado");
+
+                                boolean finded = false;
+                            
+                                for (Empleado em : lista_empleados) {
+                                    if (em.getName().toString().equalsIgnoreCase(name) && em.getSurname().toString().equalsIgnoreCase(surname)) {
+                                        System.out.println("El nombre de empleado --> " + name + " " + surname + " ya existe, debes elegir otro");
+                                        finded = true;
+                                        break;
+                                    }
+                                    
+                                }
+                                if (!finded) {
+                                        yes = false;
+                                    }
+                            }
+                        
+                            int tlf = PedirDatos.pedir_num_tlf();
+                            String email = PedirDatos.texto_no_vacio("Escribe el email del empleado");
+                            System.out.println("");
+
+                            Empleado emp = new Empleado(user, password, name, surname, tlf, email);
+                            if (lista_empleados.add(emp)) {
+                                if (gestion_conexion.Insertar_empleado(conexion, emp)) {
+                                    System.out.println("Empleado " + emp.getName() + " " + emp.getSurname() + " ha sido añadido a la BBDD con éxito");
+                                    texto_listado_empleados();
+                                    recorer_lista_empleados();
+
+                                } else {
+                                    System.out.println("No se ha podido añadir el empleado a la BBDD");
+                                }
+                            }
+
+                            break;
+                        
+                
+            
+                     case 2:
                         if (!lista_empleados.isEmpty()) {
                             texto_listado_empleados();
                             // Mostramos la lista actual de empleados con sus índices
@@ -242,6 +284,8 @@ public class main {
     /**
      * Muestra por pantalla la cabecera previa a mostrar listado de empleado
      */
+    
+
     public static void texto_listado_empleados() {
         System.out.println("");
         System.out.println("-------------------------");
