@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package PedirDatos_y_menus;
 
 import java.util.InputMismatchException;
@@ -9,7 +6,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author eduardolucasmunozdelucas
+ * @author edulumulu
  */
 public class Menus {
     /**
@@ -62,7 +59,9 @@ public class Menus {
             System.out.println("(5) - Mostrar un listado de empleados");
             System.out.println("(6) - Salir del programa");
     }
-    
+    /**
+     * Muestra por pantalla el menú para elegir si usar Interfaz gráfica o consola
+     */
     public static void menu_2(){
         System.out.println("-------------------------");
                 System.out.println("----- ELIGE UNA OPCIÓN: -----");

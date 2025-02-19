@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package GestionBBDD;
 
 
@@ -17,13 +14,13 @@ import modelo.Empleado;
 
 /**
  *
- * @author eduardolucasmunozdelucas
+ * @author edualumulu
  */
 public class Gestion_BBDD {
     
     //Variables que almacenan en forma de string los datos para realizar la conexión con el servidor 
     //------ ATENCIÓN YO HE TRABAJADO CON EL PUERTO 3308, CAMBIAR SI UTILIZAS EL POR DEFECTO MYSQL (3306) --------
-//    private final String JDBC_URL = "jdbc:mysql://localhost:3306";
+    //    private final String JDBC_URL = "jdbc:mysql://localhost:3306";
     private final String JDBC_URL = "jdbc:mysql://localhost:3308";
     private final String JDBC_COMMU_OPT = "?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private final String JDBC_USER = "root";
@@ -35,8 +32,8 @@ public class Gestion_BBDD {
     private final String JDBC_DDBB_TABLE = JDBC_DDBB + "." + JDBC_TABLE;
     
     /**
-     * Se conecta con mysql a traves del puerto, url, usuario y pasword
-     * indicados.
+     * Se conecta con mysql a traves del puerto, url, usuario y pasword indicados. 
+     * Crea la base de datos y la tabla si no existiera.
      *
      * @return ---> Connetion
      */
@@ -80,8 +77,7 @@ public class Gestion_BBDD {
     }
     
     /**
-     * Ejecuta la query de mysql para crear la tabla juegos a través de xampp
-     * mediante la conexión introducida como parámetro
+     * Ejecuta la query de mysql para crear la tabla empleados. 
      *
      * @param conexion
      * @throws SQLException
@@ -170,12 +166,20 @@ public class Gestion_BBDD {
         }
     }
     
-    public boolean modificar_campo(Connection con , String pass, int id ,String campo ){
+    /**
+     * Método para modificar un parámetro de un registro de la báse de datos
+     * @param con --> Conexión
+     * @param pass --> modificación
+     * @param id --> Id del registro de la BBDD
+     * @param campo --> Campo a modificar
+     * @return --> True o False
+     */
+    public boolean modificar_campo(Connection con , String cambio, int id ,String campo ){
         
         try{
             String query = "UPDATE " + JDBC_DDBB_TABLE + " SET "+campo+" = ? WHERE (id = ?);";
             PreparedStatement stm = con.prepareStatement(query);
-            stm.setString(1, pass);
+            stm.setString(1, cambio);
             stm.setInt(2, id);
             
             stm.executeUpdate();
@@ -231,10 +235,9 @@ public class Gestion_BBDD {
         
         ArrayList<Empleado> listaEmpleados = new ArrayList<Empleado>();
         try {
-            // CREA UN STATEMENT PARA UN SQL INSERT.
+            
             Statement sta = conn.createStatement();
-            //sta.executeUpdate("INSERT INTO album VALUES (3, 'Black Album', 'Metallica')");
-
+            
             listaEmpleados.add(new Empleado("e.lucas", "3333", "Eduardo", "lucas Muñoz de Lucas", 947348943, "edu@edu.es"));
             listaEmpleados.add(new Empleado("N.Martin", "1233", "Nuria", "Martín Lopez", 96666666, "nuria@edu.es"));
             listaEmpleados.add(new Empleado("C.Ysaven", "4123", "Carolina", "Yavén", 622222222, "carol@edu.es"));

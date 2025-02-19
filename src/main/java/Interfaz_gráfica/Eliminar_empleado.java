@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package Interfaz_gráfica;
 
 import GestionBBDD.Gestion_BBDD;
@@ -11,8 +8,8 @@ import javax.swing.JOptionPane;
 import modelo.Empleado;
 
 /**
- *
- * @author eduardolucasmunozdelucas
+ * Permite al usuario eliminar un usuario selecionadolo de un listado de la base de datos
+ * @author edulumulu
  */
 public class Eliminar_empleado extends javax.swing.JDialog {
 

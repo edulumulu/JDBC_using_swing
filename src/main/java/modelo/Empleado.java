@@ -1,12 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package modelo;
 
 /**
- *
- * @author eduardolucasmunozdelucas
+ * Modelo Empleado con los getters, setters y constructores conrrespondietnes.
+ * Tambien sobreescribí el método toString
+ * @author edulumulu
  */
 public class Empleado {
     

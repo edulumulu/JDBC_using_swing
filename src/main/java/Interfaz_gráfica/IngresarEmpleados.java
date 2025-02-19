@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package Interfaz_gráfica;
 
 import GestionBBDD.Gestion_BBDD;
@@ -11,8 +8,10 @@ import javax.swing.JOptionPane;
 import modelo.Empleado;
 
 /**
- *
- * @author eduardolucasmunozdelucas
+ * Formulario para ingresar un nuevo registro en la BBDD. 
+ * Controla qeu los campos no estén vacíos o no concuerde con lo que se pide así 
+ * como no introducir un usuario ya existente o un nombre y apellido ya existente también.
+ * @author edulumulu
  */
 public class IngresarEmpleados extends javax.swing.JDialog {
 
@@ -216,7 +215,7 @@ public class IngresarEmpleados extends javax.swing.JDialog {
 
         int tlf = Integer.parseInt(tlfTexto); // Ahora es seguro convertirlo
 
-        // Verifica que tenga exactamente 9 dígitos
+        // Verifico que tenga exactamente 9 dígitos
         if (tlfTexto.length() != 9) {
             JOptionPane.showMessageDialog(this, "El nº de teléfono debe tener exactamente 9 dígitos", "Error en el nº de teléfono", JOptionPane.WARNING_MESSAGE);
             return;

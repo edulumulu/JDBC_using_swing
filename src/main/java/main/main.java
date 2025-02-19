@@ -1,6 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
+
 package main;
 
 import GestionBBDD.Gestion_BBDD;
@@ -15,8 +13,8 @@ import java.util.ArrayList;
 import modelo.Empleado;
 
 /**
- *
- * @author eduardolucasmunozdelucas
+ * Main de la aplicación
+ * @author edulumulu
  */
 public class main {
 
@@ -78,8 +76,9 @@ public class main {
                             user = PedirDatos.texto_no_vacio("Escribe el usuario del empleado");
                             boolean encontrado = false;
 
+                            //Compruebo que el usuario no concuerda con ninguno existente en la BBDD
                             for (Empleado em : lista_empleados) {
-                                if (em.getUser().toString().equalsIgnoreCase(user) || user == null) {
+                                if (em.getUser().equalsIgnoreCase(user) || user == null) {
                                     System.out.println("El usuario de empleado --> " + user + " ya existe, debes elegir otro");
                                     encontrado = true;
                                     break;
@@ -96,6 +95,7 @@ public class main {
                             String surname = null;
 
                             yes = true;
+                            //Compruebo que el nombre y apellido no concuerde con ninguno existente en la BBDD
                             while (yes) {
                                 name = PedirDatos.texto_no_vacio("Escribe el nombre del empleado");
                                 surname = PedirDatos.texto_no_vacio("Escribe el apellido del empleado");
@@ -103,7 +103,7 @@ public class main {
                                 boolean finded = false;
                             
                                 for (Empleado em : lista_empleados) {
-                                    if (em.getName().toString().equalsIgnoreCase(name) && em.getSurname().toString().equalsIgnoreCase(surname)) {
+                                    if (em.getName().equalsIgnoreCase(name) && em.getSurname().equalsIgnoreCase(surname)) {
                                         System.out.println("El nombre de empleado --> " + name + " " + surname + " ya existe, debes elegir otro");
                                         finded = true;
                                         break;
@@ -119,8 +119,10 @@ public class main {
                             String email = PedirDatos.texto_no_vacio("Escribe el email del empleado");
                             System.out.println("");
 
+                            //Creo el nuevo empleado en la lista de empliados con los datos del usuario
                             Empleado emp = new Empleado(user, password, name, surname, tlf, email);
                             if (lista_empleados.add(emp)) {
+                                //Lo inserto en la BBDD
                                 if (gestion_conexion.Insertar_empleado(conexion, emp)) {
                                     System.out.println("Empleado " + emp.getName() + " " + emp.getSurname() + " ha sido añadido a la BBDD con éxito");
                                     texto_listado_empleados();
@@ -136,9 +138,9 @@ public class main {
                 
             
                      case 2:
+                         // Muestro un listado con nombre apellidos y contraseña
                         if (!lista_empleados.isEmpty()) {
                             texto_listado_empleados();
-                            // Mostramos la lista actual de empleados con sus índices
                             for (int i = 0; i < lista_empleados.size(); i++) {
                                 System.out.println("Empleado " + (i + 1) + " --> " + lista_empleados.get(i).getName() + " "
                                         + lista_empleados.get(i).getSurname() + " Contraseña --> " + lista_empleados.get(i).getPassword());
@@ -152,6 +154,8 @@ public class main {
                             String nombreEmpleado = lista_empleados.get(indice - 1).getName() + " " + lista_empleados.get(indice - 1).getSurname();
                             String vieja_contrasena = lista_empleados.get(indice - 1).getPassword();
                             String nueva_contrasena;
+                            
+                            //Pido al usuario la nueva contrasña y compruebo que no sea la misma que la anterior
                             while (true) {
                                 nueva_contrasena = PedirDatos.texto_no_vacio("Escribe la nueva contraseña del empleado");
 
@@ -164,6 +168,7 @@ public class main {
 
                             }
 
+                            // Si ya modificó el Arraylist lo inserto en la base de datos y muestro el cambio al usuario
                             if (lista_empleados.get(indice - 1).getPassword().equalsIgnoreCase(nueva_contrasena)
                                     && gestion_conexion.modificar_campo(conexion, nueva_contrasena, idEmpleadoBBDD, "password")) {
                                 System.out.println("");
@@ -183,6 +188,8 @@ public class main {
 
                         break;
                     case 3:
+                        // MIsma lógica que case 2
+                        // Muestro un listado con nombre apellidos y usuario
                         if (!lista_empleados.isEmpty()) {
                             texto_listado_empleados();
                             // Mostramos la lista actual de empleados con sus índices
@@ -231,6 +238,7 @@ public class main {
                         break;
                     case 4:
 
+                        // Mísma lógica que casos anteriores
                         if (!lista_empleados.isEmpty()) {
                             texto_listado_empleados();
                             // Mostramos la lista actual de empleados con sus índices
@@ -248,7 +256,6 @@ public class main {
                             if (gestion_conexion.borrar_empleado(conexion, idEmpleadoBBDD)) {
                                 System.out.println("El empleado --> " + nombreEmpleado + " con id " + idEmpleadoBBDD + " ha sido borrado.");
 
-                                // Eliminamos el empleado de la lista en memoria
                                 lista_empleados.remove(indice - 1);
 
                                 texto_listado_empleados();

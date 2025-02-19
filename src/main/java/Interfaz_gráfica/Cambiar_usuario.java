@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package Interfaz_gráfica;
 
 import GestionBBDD.Gestion_BBDD;
@@ -14,8 +11,8 @@ import javax.swing.JOptionPane;
 import modelo.Empleado;
 
 /**
- *
- * @author eduardolucasmunozdelucas
+ *Misma lógica que clase cambiar contraseña
+ * @author edulumulu
  */
 public class Cambiar_usuario extends javax.swing.JDialog {
 

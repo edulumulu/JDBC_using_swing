@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package Interfaz_gráfica;
 
 import GestionBBDD.Gestion_BBDD;
@@ -12,8 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Empleado;
 
 /**
- *
- * @author eduardolucasmunozdelucas
+ * Muestra por pantalla una tabla con un listado de los empleados de la BBDD con su información
+ * @author edulumulu
  */
 public class Mostrar_empleados extends javax.swing.JDialog {
 

@@ -1,15 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Interfaz_gráfica;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
- * @author eduardolucasmunozdelucas
+ * Menú principal con botones para abrir las diferentes ventanas
+ * @author edulumulu
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 

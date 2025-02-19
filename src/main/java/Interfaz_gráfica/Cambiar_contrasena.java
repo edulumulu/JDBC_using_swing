@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package Interfaz_gráfica;
 
 import GestionBBDD.Gestion_BBDD;
@@ -14,8 +11,8 @@ import javax.swing.JOptionPane;
 import modelo.Empleado;
 
 /**
- *
- * @author eduardolucasmunozdelucas
+ * Permite al usuario modificar la contraseña selecionando el nombre de un registro de la base de datos
+ * @author edulumulu
  */
 public class Cambiar_contrasena extends javax.swing.JDialog {
 
@@ -40,7 +37,8 @@ public class Cambiar_contrasena extends javax.swing.JDialog {
         tf_contranueva.setVisible(false);
 
         lista_empleados = gesBBDD.cargar_listado_empleados(con);
-
+            
+        //Cargo el comboBox con el nombre y apellido de los empleados introduciendo un campo "seleciona un empleado"
         if (!lista_empleados.isEmpty()) {
             String[] listado = new String[lista_empleados.size()];
 
@@ -55,6 +53,7 @@ public class Cambiar_contrasena extends javax.swing.JDialog {
 
         }
 
+        // Listener para la selección del empleado que hace interactuable la modificación del campo
         cb_combo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -192,6 +191,7 @@ public class Cambiar_contrasena extends javax.swing.JDialog {
 
     private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_eliminarActionPerformed
 
+        // si la contraseña no es la misma que la anterior inserta el nuevo campo en la base de datos
         if (tf_contranueva.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tienes que rellenar la nueva contraseña", "Faltan campos por rellenar", JOptionPane.WARNING_MESSAGE);
             return;
@@ -213,7 +213,10 @@ public class Cambiar_contrasena extends javax.swing.JDialog {
     
         }
     }//GEN-LAST:event_bt_eliminarActionPerformed
-
+/**
+ * Se desconecta de la BBDD y sale de la ventana al menú principal
+ * @param evt 
+ */
     private void bt_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salirActionPerformed
 
         gesBBDD.desconectarse(con);
